@@ -355,16 +355,33 @@
             </div>
         </div>
     </footer>
+<script>
+    // Mobile menu toggle
+    document.getElementById('menu-toggle').addEventListener('click', function() {
+        const menu = document.getElementById('mobile-menu');
+        menu.classList.toggle('hidden');
+        menu.classList.toggle('flex');
+    });
 
-    <script>
-        // Mobile menu toggle
-        document.getElementById('menu-toggle').addEventListener('click', function() {
-            const menu = document.getElementById('mobile-menu');
-            menu.classList.toggle('hidden');
-            menu.classList.toggle('flex');
-        });
-
-        // Copy to clipboard function
-        function copyToClipboard(text) {
-            navigator.clipboard.writeText(text).then(function() {
-                alert('Berhasil disalin:
+    // Fixed copy to clipboard function
+    function copyToClipboard(text) {
+        // Create a temporary textarea element
+        const textarea = document.createElement('textarea');
+        textarea.value = text;
+        textarea.style.position = 'fixed'; // Avoid scrolling to bottom
+        document.body.appendChild(textarea);
+        textarea.select();
+        
+        try {
+            // Execute the copy command
+            const successful = document.execCommand('copy');
+            const msg = successful ? 'berhasil' : 'gagal';
+            alert('Teks ' + msg + ' disalin: ' + text);
+        } catch (err) {
+            alert('Gagal menyalin teks: ' + err);
+        }
+        
+        // Remove the temporary textarea
+        document.body.removeChild(textarea);
+    }
+</script>
